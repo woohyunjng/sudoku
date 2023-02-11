@@ -1,6 +1,8 @@
 from termcolor import colored
 from os import system
 
+from .solver import sdoku
+
 titleText = colored("""
 < 사칙연산 스도쿠 해결 프로그램 >
 by Woohyun Jung
@@ -57,3 +59,6 @@ for i in check_board:
 if check_n != 81:
     edit(colored("입력에 문제가 있습니다", "red"))
     exit()
+
+res = sdoku(board).solve()
+edit(colored("< 정답 >\n", "magenta") + display_board(res, 1) + '\n')
