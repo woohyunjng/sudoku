@@ -1,7 +1,7 @@
 from termcolor import colored
 from os import system
 
-from .solver import sdoku
+from solver import sdoku
 
 titleText = colored("""
 < 사칙연산 스도쿠 해결 프로그램 >
@@ -60,5 +60,6 @@ if check_n != 81:
     edit(colored("입력에 문제가 있습니다", "red"))
     exit()
 
+edit(colored("잠시만 기다려주세요 (예상 시간: 1~2분)", "yellow"))
 res = sdoku(board).solve()
 edit(colored("< 정답 >\n", "magenta") + display_board(res, 1) + '\n')
