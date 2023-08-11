@@ -3,19 +3,26 @@ from os import system
 
 from solver import sdoku
 
-titleText = colored("""
+titleText = colored(
+    """
 < 사칙연산 스도쿠 해결 프로그램 >
 by Woohyun Jung
 
 
-""", "green")
+""",
+    "green",
+)
 
-def edit(string): 
+
+def edit(string):
     system("cls")
     print(titleText + string)
 
+
 board = []
 enter = 0
+
+
 def display_board(inp_board, typ=0):
     str_board = ""
 
@@ -29,15 +36,19 @@ def display_board(inp_board, typ=0):
         ims_board = inp_board
 
     for i in ims_board:
-        str_board += "".join(map(lambda x: str(x).ljust(5), i)) + '\n'
+        str_board += "".join(map(lambda x: str(x).ljust(5), i)) + "\n"
 
     return str_board
 
+
 try:
     while enter < 81:
-        edit(colored("< 현재 스도쿠 >\n", "magenta") + display_board(board) + '\n')
+        edit(colored("< 현재 스도쿠 >\n", "magenta") + display_board(board) + "\n")
         num = input("숫자: ")
-        coord = [tuple(map(lambda x: int(x) - 1, i.strip("()").split(','))) for i in input("좌표((x,y) 사이에 띄어쓰기): ").split(' ')]
+        coord = [
+            tuple(map(lambda x: int(x) - 1, i.strip("()").split(",")))
+            for i in input("좌표((x,y) 사이에 띄어쓰기): ").split(" ")
+        ]
         board.append([num, coord])
         enter += len(coord)
 except:
@@ -48,7 +59,7 @@ check_board = [[0] * 9 for i in range(9)]
 for i in board:
     for j in i[1]:
         x, y = j
-        check_board[y][x]  = i[0]
+        check_board[y][x] = i[0]
 
 check_n = 0
 for i in check_board:
@@ -62,4 +73,4 @@ if check_n != 81:
 
 edit(colored("잠시만 기다려주세요 (예상 시간: 1~2분)", "yellow"))
 res = sdoku(board).solve()
-edit(colored("< 정답 >\n", "magenta") + display_board(res, 1) + '\n')
+edit(colored("< 정답 >\n", "magenta") + display_board(res, 1) + "\n")

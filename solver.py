@@ -4,12 +4,13 @@ def mul(arr):
         res *= i
     return res
 
+
 class sdoku:
     def __init__(self, inp):
         self.inp = inp
 
-        self.board = [[0] * 9 for i in range(9)]  
-        self.res_board = [[0] * 9 for i in range(9)]  
+        self.board = [[0] * 9 for i in range(9)]
+        self.res_board = [[0] * 9 for i in range(9)]
         self.x = []
 
         for i in range(len(inp)):
@@ -18,7 +19,7 @@ class sdoku:
                 self.board[y][x] = i
                 self.x.append(j)
 
-        self.x_check = [[0] * 10 for i in range(9)]  
+        self.x_check = [[0] * 10 for i in range(9)]
         self.y_check = [[0] * 10 for i in range(9)]
 
     def _solver(self, zi):
@@ -36,18 +37,23 @@ class sdoku:
             if self.res_board[j][i] != 0:
                 fn += 1
                 ln.append(self.res_board[j][i])
-        
+
         if fn == len(self.inp[self.board[y][x]][1]) - 1:
             lo = True
-                        
+
         for num in range(1, 10):
             if not self.x_check[x][num] and not self.y_check[y][num]:
                 if lo:
                     check = False
                     if fn == 1:
-                        check = check or (abs(ln[0] - num) == rn) or ((ln[0] / num) == rn) or ((num / ln[0]) == rn)
+                        check = (
+                            check
+                            or (abs(ln[0] - num) == rn)
+                            or ((ln[0] / num) == rn)
+                            or ((num / ln[0]) == rn)
+                        )
                     check = check or (sum(ln) + num == rn) or (mul(ln) * num == rn)
-                    
+
                     if not check:
                         continue
 
